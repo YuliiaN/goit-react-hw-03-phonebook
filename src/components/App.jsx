@@ -5,8 +5,6 @@ import ContactsList from './ContactsList/ContactsList';
 import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
 
-///
-
 export class App extends Component {
   state = {
     contacts: [
@@ -18,7 +16,19 @@ export class App extends Component {
     filter: '',
   };
 
-  componentDidUpdate;
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(savedContacts);
+    this.setState({
+      contacts: parsedContacts,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   addName = ({ name, number }) => {
     const isRepeated = this.state.contacts.find(
