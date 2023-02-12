@@ -18,6 +18,8 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidUpdate;
+
   addName = ({ name, number }) => {
     const isRepeated = this.state.contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
